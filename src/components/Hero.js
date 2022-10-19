@@ -68,7 +68,7 @@ function Hero() {
     // });
 
 
-    fetch(BASE_URL + '/api/image', requestOption)
+    fetch(BASE_URL + 'api/image', requestOption)
       .then((response) => {
         if (response.ok) {
           response.json().then((json) => {
