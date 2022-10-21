@@ -8,7 +8,7 @@ import axios from "axios";
 
 
 //const BASE_URL = 'http://104.131.4.58:8000/'
-const BASE_URL = 'https://159.223.173.184:80'
+const BASE_URL = 'https://bananaripe.co'
 
 
 
