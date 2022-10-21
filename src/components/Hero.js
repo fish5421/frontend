@@ -7,7 +7,9 @@ import axios from "axios";
 
 
 
-const BASE_URL = 'http://104.131.4.58:8000/'
+//const BASE_URL = 'http://104.131.4.58:8000/'
+const BASE_URL = 'http://159.223.173.184:80'
+
 
 
 function Hero() {
@@ -67,6 +69,14 @@ function Hero() {
     //   setImageurl(null);
     // });
 
+
+    fetch(BASE_URL + '/day')
+	.then((response) => {
+		return response.json();
+	})
+	.then((data) => {
+		console.log(data);
+	})
 
     fetch(BASE_URL + 'api/image', requestOption)
       .then((response) => {
