@@ -69,16 +69,7 @@ function Hero() {
     //   setImageurl(null);
     // });
 
-
-    fetch(BASE_URL + '/day')
-	.then((response) => {
-		return response.json();
-	})
-	.then((data) => {
-		console.log(data);
-	})
-
-    fetch(BASE_URL + 'api/image', requestOption)
+    fetch(BASE_URL + '/api/image', requestOption)
       .then((response) => {
         if (response.ok) {
           response.json().then((json) => {
