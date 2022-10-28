@@ -75,7 +75,7 @@ function Hero() {
           response.json().then((json) => {
             console.log(json.data.path);
             console.log(json.data.class);
-            setImageurl(BASE_URL + json.data.path);
+            setImageurl(BASE_URL + '/' + json.data.path);
             setRipe(json.data.class);
             console.log(imageurl);
           });
