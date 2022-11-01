@@ -4,11 +4,16 @@ import gallery from "../images/gallery.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhotoFilm, faHouse } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-
+import { hotjar } from 'react-hotjar';
 
 
 //const BASE_URL = 'http://104.131.4.58:8000/'
 const BASE_URL = 'https://bananaripe.co'
+hotjar.initialize(3228345, 6);
+
+if (hotjar.initialized()) {
+  hotjar.identify('USER_ID', { userProperty: 'value' });
+}
 
 
 
