@@ -17,6 +17,8 @@ function Hero() {
   const hiddenFileInput = React.useRef(null);
   const [imageurl, setImageurl] = useState("");
   const [ripe, setRipe] = useState("");
+  const [errorMsg, setErrorMsg] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
 
 
@@ -25,7 +27,7 @@ function Hero() {
     
     hiddenFileInput.current.click();
   };
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState();
 
   const handleChange = (e) => {
       if (e.target.files[0]) {
@@ -37,6 +39,25 @@ function Hero() {
   const handleUpload = (e) => {
     e?.preventDefault();
 
+    const MAX_FILE_SIZE = 5120 // 5MB
+
+    if (!image) {
+      setErrorMsg("Please choose a file");
+      setIsSuccess(false)
+      return
+    }
+
+    const fileSizeKiloBytes = image.size / 1024
+
+    if(fileSizeKiloBytes > MAX_FILE_SIZE){
+      setErrorMsg("File size is greater than maximum limit");
+      setIsSuccess(false)
+      return
+    }
+
+
+    setErrorMsg("")
+    setIsSuccess(true)
 
     const formData = new FormData();
     formData.append('image', image)
@@ -106,14 +127,21 @@ function Hero() {
           <h1 class="text-center text-xl font-semibold ">Is my Banana Ripe?</h1>
           <img src={gallery} alt="gallery" />
           <div class="flex flex-col justify-center">
-          <React.Fragment>
-            <input
-              name="image"
-              type="file"
-              accept="image/*"
-              onChange={handleChange}
-              id="fileInput"
-            />
+            <React.Fragment>
+              <input
+                name="image"
+                type="file"
+                accept="image/*"
+                onChange={handleChange}
+                id="fileInput"
+              />
+              <div>
+                <p>Max image size: 5MB</p>
+              </div>
+              {isSuccess ? (
+                <p className="success-message">Validation successful</p>
+              ) : null}
+              <p className="error-message">{errorMsg}</p>
 
               <button
                 class=" text-center shadow-md bg-blue-600 text-white active:bg-blue-600 font-bold uppercase text-xs pl-4 pr-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
@@ -121,21 +149,23 @@ function Hero() {
                 component="span"
                 onClick={handleUpload}
               >
-               
                 <FontAwesomeIcon icon={faPhotoFilm} /> Upload{" "}
               </button>
-              </React.Fragment>
-              
+            </React.Fragment>
           </div>
-          <img src={imageurl} alt = "" width="750px" />
-          <h2 class = "uppercase mt-10 sm:-mx-10 md:-mx-20 lg:mx-40 text-center font-sans font-medium text-xl text-slate-200 bg-slate-700">{ripe}</h2>
+          <img src={imageurl} alt="" width="750px" />
+          <h2 class="uppercase mt-10 sm:-mx-10 md:-mx-20 lg:mx-40 text-center font-sans font-medium text-xl text-slate-200 bg-slate-700">
+            {ripe}
+          </h2>
           <h1 class="text-center mt-20 text-lg font-semibold">
             Let's Talk Product
           </h1>
           <p class="text-center text-base">
-            There are so many little things that make life a bit easier to manage day-to-day. We
-            wanted to develop a solution for a problem of knowing if a banana was ripe or not. If you would like to get more 
-            information when additional services become available or you have any feedback please sign-up below and get in-touch. {" "}
+            There are so many little things that make life a bit easier to
+            manage day-to-day. We wanted to develop a solution for a problem of
+            knowing if a banana was ripe or not. If you would like to get more
+            information when additional services become available or you have
+            any feedback please sign-up below and get in-touch.{" "}
           </p>
         </div>
       </div>
